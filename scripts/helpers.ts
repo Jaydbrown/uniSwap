@@ -36,7 +36,6 @@ export async function pool(tokenA: string, tokenB: string, fee: number): Promise
   return new ethers.Contract(addr, V3_POOL_ABI, ethers.provider);
 }
 
-// ─── Token utils ──────────────────────────────────────────────────────────────
 
 export async function balanceOf(token: string, account: string): Promise<bigint> {
   return erc20(token).balanceOf(account);

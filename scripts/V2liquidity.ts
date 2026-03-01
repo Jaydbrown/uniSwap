@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { Signer, BigNumberish } from "ethers";
-import { ADDR } from "../contracts/constants";
-import { approve, v2Router, v2Factory, balanceOf, dl, e18 } from "../contracts/helpers";
+import { ADDR } from "./constants";
+import { approve, v2Router, v2Factory, balanceOf, dl, e18 } from "./helpers";
 
 
 export async function getReserves(tokenA: string, tokenB: string) {

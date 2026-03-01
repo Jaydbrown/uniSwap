@@ -3,8 +3,8 @@ import { BigNumberish, Signer } from "ethers";
 import {
   ADDRESSES, ERC20_ABI, WETH_ABI, V2_ROUTER_ABI, V2_FACTORY_ABI,
   V2_PAIR_ABI, V3_ROUTER_ABI, V3_QUOTER_ABI, V3_POOL_ABI,
-  V3_FACTORY_ABI, V3_POSITION_MANAGER_ABI, FEE_TIERS,
-} from "./contracts/constants";
+  V3_FACTORY_ABI, V3_NFTPM_ABI, FEE_TIERS,
+} from "../../scripts/constants";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -71,7 +71,7 @@ export async function v2SwapExactETHForTokens(
   const tx = await router.swapExactETHForTokens(
     amountOutMin, path, recipient, deadline(), { value: amountETH }
   );
-  const receipt = await tx.wait();
+  await tx.wait();
   const amounts = await router.getAmountsOut(amountETH, path);
   return amounts;
 }
@@ -129,7 +129,7 @@ export async function v2AddLiquidity(
   const tx = await router.addLiquidity(
     tokenA, tokenB, amountA, amountB, 0n, 0n, recipient, deadline()
   );
-  const receipt = await tx.wait();
+  await tx.wait();
   return { amountA: BigInt(amountA.toString()), amountB: BigInt(amountB.toString()), liquidity: 0n };
 }
 
@@ -185,7 +185,7 @@ export async function v3SwapExactInputSingle(
   };
   const tx = await router.exactInputSingle(params);
   await tx.wait();
-  return 0n; // actual amountOut would need event parsing
+  return 0n;
 }
 
 export async function v3SwapExactOutputSingle(
@@ -267,9 +267,9 @@ export async function v3MintPosition(
   recipient: string,
   signer: Signer
 ): Promise<{ tokenId: bigint; liquidity: bigint; amount0: bigint; amount1: bigint }> {
-  const pm = new ethers.Contract(ADDRESSES.V3_POSITION_MANAGER, V3_POSITION_MANAGER_ABI, signer);
-  await approveToken(token0, ADDRESSES.V3_POSITION_MANAGER, amount0, signer);
-  await approveToken(token1, ADDRESSES.V3_POSITION_MANAGER, amount1, signer);
+  const pm = new ethers.Contract(ADDRESSES.V3_NFTPM, V3_NFTPM_ABI, signer);
+  await approveToken(token0, ADDRESSES.V3_NFTPM, amount0, signer);
+  await approveToken(token1, ADDRESSES.V3_NFTPM, amount1, signer);
   const params = {
     token0, token1, fee, tickLower, tickUpper,
     amount0Desired: amount0,
@@ -280,7 +280,7 @@ export async function v3MintPosition(
     deadline: deadline(),
   };
   const tx = await pm.mint(params);
-  const receipt = await tx.wait();
+  await tx.wait();
   return { tokenId: 0n, liquidity: 0n, amount0: 0n, amount1: 0n };
 }
 
@@ -289,7 +289,7 @@ export async function v3CollectFees(
   recipient: string,
   signer: Signer
 ): Promise<{ amount0: bigint; amount1: bigint }> {
-  const pm = new ethers.Contract(ADDRESSES.V3_POSITION_MANAGER, V3_POSITION_MANAGER_ABI, signer);
+  const pm = new ethers.Contract(ADDRESSES.V3_NFTPM, V3_NFTPM_ABI, signer);
   const MAX_UINT128 = 2n ** 128n - 1n;
   const tx = await pm.collect({
     tokenId,
@@ -306,7 +306,7 @@ export async function v3DecreaseLiquidity(
   liquidity: BigNumberish,
   signer: Signer
 ): Promise<{ amount0: bigint; amount1: bigint }> {
-  const pm = new ethers.Contract(ADDRESSES.V3_POSITION_MANAGER, V3_POSITION_MANAGER_ABI, signer);
+  const pm = new ethers.Contract(ADDRESSES.V3_NFTPM, V3_NFTPM_ABI, signer);
   const tx = await pm.decreaseLiquidity({
     tokenId,
     liquidity,

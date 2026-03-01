@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { Signer, BigNumberish } from "ethers";
-import { ADDR, FEE } from "../contracts/constants";
-import { approve, v2Router, dl, e18 } from "../contracts/helpers";
+import { ADDR, FEE } from "../scripts/constants";
+import { approve, v2Router, dl, e18 } from "../scripts/helpers";
 
 /** ETH → Token */
 export async function swapETHForTokens(

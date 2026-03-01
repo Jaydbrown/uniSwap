@@ -1,20 +1,26 @@
 export const ADDR = {
-  WETH:        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-  USDC:        "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-  DAI:         "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-  USDT:        "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-  WBTC:        "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+  WETH:       "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  USDC:       "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+  DAI:        "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+  USDT:       "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+  WBTC:       "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
 
-  V2_ROUTER:   "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
-  V2_FACTORY:  "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+  V2_ROUTER:  "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+  V2_FACTORY: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
 
-  V3_ROUTER:   "0xE592427A0AEce92De3Edee1F18E0157C05861564",
-  V3_FACTORY:  "0x1F98431c8aD98523631AE4a59f267346ea31F984",
-  V3_QUOTER:   "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
-  V3_NFTPM:    "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
+  V3_ROUTER:  "0xE592427A0AEce92De3Edee1F18E0157C05861564",
+  V3_FACTORY: "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+  V3_QUOTER:  "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+  V3_NFTPM:   "0xC36442b4a4522E871399CD717aBDD847Ab11FE88",
 };
 
+// Aliases for backwards compatibility
+export const ADDRESSES = ADDR;
+
 export const FEE = { LOW: 500, MED: 3000, HIGH: 10000 } as const;
+
+// Alias for backwards compatibility
+export const FEE_TIERS = { LOW: 500, MEDIUM: 3000, HIGH: 10000 } as const;
 
 export const ERC20_ABI = [
   "function balanceOf(address) view returns (uint256)",
@@ -68,17 +74,17 @@ export const V3_ROUTER_ABI = [
 ];
 
 export const V3_FACTORY_ABI = [
-  "function getPool(address,address,uint24) view returns (address)",
+  "function getPool(address, address, uint24) view returns (address)",
 ];
 
 export const V3_QUOTER_ABI = [
-  "function quoteExactInputSingle(address tokenIn,address tokenOut,uint24 fee,uint256 amountIn,uint160 sqrtPriceLimitX96) returns (uint256 amountOut)",
-  "function quoteExactInput(bytes path,uint256 amountIn) returns (uint256 amountOut)",
-  "function quoteExactOutputSingle(address tokenIn,address tokenOut,uint24 fee,uint256 amountOut,uint160 sqrtPriceLimitX96) returns (uint256 amountIn)",
+  "function quoteExactInputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountIn, uint160 sqrtPriceLimitX96) returns (uint256 amountOut)",
+  "function quoteExactInput(bytes path, uint256 amountIn) returns (uint256 amountOut)",
+  "function quoteExactOutputSingle(address tokenIn, address tokenOut, uint24 fee, uint256 amountOut, uint160 sqrtPriceLimitX96) returns (uint256 amountIn)",
 ];
 
 export const V3_POOL_ABI = [
-  "function slot0() view returns (uint160 sqrtPriceX96,int24 tick,uint16,uint16,uint16,uint8,bool)",
+  "function slot0() view returns (uint160 sqrtPriceX96, int24 tick, uint16, uint16, uint16, uint8, bool)",
   "function liquidity() view returns (uint128)",
   "function token0() view returns (address)",
   "function token1() view returns (address)",
@@ -95,5 +101,8 @@ export const V3_NFTPM_ABI = [
   "function burn(uint256 tokenId)",
   "function positions(uint256 tokenId) view returns (uint96,address,address token0,address token1,uint24 fee,int24 tickLower,int24 tickUpper,uint128 liquidity,uint256,uint256,uint128,uint128)",
   "function balanceOf(address) view returns (uint256)",
-  "function tokenOfOwnerByIndex(address,uint256) view returns (uint256)",
+  "function tokenOfOwnerByIndex(address, uint256) view returns (uint256)",
 ];
+
+
+export const V3_POSITION_MANAGER_ABI = V3_NFTPM_ABI;

@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { Signer, BigNumberish } from "ethers";
-import { ADDR, FEE } from "../contracts/constants";
-import { approve, v3Router, v3Quoter, encodePath, dl, e18 } from "../contracts/helpers";
+import { ADDR, FEE } from "./constants";
+import { approve, v3Router, v3Quoter, encodePath, dl, e18 } from "./helpers";
 
 /** Quote: exact input single */
 export async function quoteExactIn(
