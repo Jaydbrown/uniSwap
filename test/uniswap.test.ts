@@ -33,8 +33,6 @@ describe("Uniswap Mainnet Fork", () => {
     addr = await signer.getAddress();
   });
 
-  // ─── WETH ────────────────────────────────────────────────────────────────────
-
   describe("WETH", () => {
     it("wraps ETH → WETH", async () => {
       const before = await balanceOf(ADDR.WETH, addr);
@@ -71,7 +69,6 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── V2 Swaps ────────────────────────────────────────────────────────────────
 
   describe("V2 Swaps", () => {
     it("swaps ETH → USDC", async () => {
@@ -115,7 +112,7 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── V2 Liquidity ────────────────────────────────────────────────────────────
+
 
   describe("V2 Liquidity", () => {
     let pairAddr: string;
@@ -157,7 +154,6 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── V3 Quotes ───────────────────────────────────────────────────────────────
 
   describe("V3 Quotes", () => {
     before(async () => {
@@ -191,7 +187,6 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── V3 Swaps ────────────────────────────────────────────────────────────────
 
   describe("V3 Swaps", () => {
     it("swaps WETH → USDC exact in (0.3%)", async () => {
@@ -244,8 +239,6 @@ describe("Uniswap Mainnet Fork", () => {
       expect(info.liquidity).to.be.gt(0n);
     });
   });
-
-  // ─── V3 Positions ────────────────────────────────────────────────────────────
 
   describe("V3 Positions (NonfungiblePositionManager)", () => {
     let tokenId: bigint;
@@ -302,7 +295,7 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── Price Comparison ────────────────────────────────────────────────────────
+
 
   describe("V2 vs V3 Price Comparison", () => {
     it("compares WETH→USDC price across V2 and V3", async () => {
@@ -318,7 +311,7 @@ describe("Uniswap Mainnet Fork", () => {
     });
   });
 
-  // ─── UniswapInteractor Contract ──────────────────────────────────────────────
+
 
   describe("UniswapInteractor (on-chain contract)", () => {
     let interactor: any;
